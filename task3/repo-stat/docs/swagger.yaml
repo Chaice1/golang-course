@@ -1,0 +1,87 @@
+basePath: /
+definitions:
+  dto.PingResponse:
+    properties:
+      services:
+        items:
+          $ref: '#/definitions/dto.ServicesInfo'
+        type: array
+      status:
+        type: string
+    type: object
+  dto.RepoInfo:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      forks:
+        type: integer
+      full_name:
+        type: string
+      stars:
+        type: integer
+    type: object
+  dto.ServicesInfo:
+    properties:
+      name:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:28080
+info:
+  contact: {}
+  description: Сервис для сбора статистики репозиториев GitHub.
+  title: Repo Stat API
+  version: "1.0"
+paths:
+  /api/ping:
+    get:
+      description: Возвращает статус доступности подписчка и процессора
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PingResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/dto.PingResponse'
+      summary: Проверка статуса системы
+      tags:
+      - system
+  /api/repositories/info:
+    get:
+      description: Запрашивает данные о звездах, форках и коммитах
+      parameters:
+      - description: Полная ссылка на репозиторий (например, https://github.com/golang/go)
+        in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.RepoInfo'
+        "400":
+          description: bad request
+          schema:
+            type: string
+        "404":
+          description: repo not found
+          schema:
+            type: string
+        "500":
+          description: internal error
+          schema:
+            type: string
+      summary: Получить инфо о репозитории
+      tags:
+      - repository
+swagger: "2.0"
