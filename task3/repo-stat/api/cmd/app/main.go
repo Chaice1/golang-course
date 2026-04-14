@@ -42,6 +42,11 @@ func run(ctx context.Context) error {
 	return nil
 }
 
+// @title           Repo Stat API
+// @version         1.0
+// @description     Сервис для сбора статистики репозиториев GitHub.
+// @host            localhost:28080
+// @BasePath        /
 func main() {
 	ctx := context.Background()
 	ctx, cancel := signal.NotifyContext(ctx, os.Interrupt)
