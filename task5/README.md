@@ -152,3 +152,27 @@ Collector остается сервисом, который инкапсулир
 - [pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool)
 - [Clean Architecture в Go](https://pavel-v-p.medium.com/clean-architecture-in-go-2708304217f2)
 - Kafka in action (книга)
+
+## Инструкция по запуску
+## Запуск с помощью Docker
+1.  **Клонируйте репозиторий:**
+    ```bash
+    git clone https://github.com/Chaice1/golang-course
+    ```
+
+2.  **Перейдите в директорию проекта:**
+    ```bash
+    cd golang-course
+    ```
+3. **Перейдите в папку task4:**
+    ```bash
+    cd task5
+    ```
+4.  **Запуск программы:**
+    ```bash
+    make up
+    ```
+5.  **Остановка работы программы:**
+    ```
+    make down
+    ```
