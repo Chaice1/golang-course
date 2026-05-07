@@ -88,7 +88,7 @@ func (r *repo) CreateRepoTransaction(ctx context.Context, id uuid.UUID, payload 
 	}
 
 	err = qq.CreateOrUpdateRepoInfo(ctx, generated_processor_db.CreateOrUpdateRepoInfoParams{
-		Fullname:    repoinfo.FullName,
+		Lower:       repoinfo.FullName,
 		Description: repoinfo.Description,
 		Forks:       int32(repoinfo.Forks),
 		Stargazers:  int32(repoinfo.Stargazers),
