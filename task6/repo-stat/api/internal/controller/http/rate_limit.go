@@ -12,7 +12,7 @@ import (
 )
 
 type RedisRepo interface {
-	CheckRateLimit(context.Context, string, int) (bool, error)
+	CheckRateLimit(context.Context, string, int, float64) (bool, error)
 }
 
 type rateLimiter struct {
@@ -38,7 +38,7 @@ func (rl *rateLimiter) RateLimitMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 
-		allowed, err := rl.redis.CheckRateLimit(context.Background(), ip, rl.burst)
+		allowed, err := rl.redis.CheckRateLimit(context.Background(), ip, rl.burst, rl.rps)
 
 		if err != nil {
 

@@ -98,13 +98,13 @@ func (rr *RedisRepo) SetRepoInfo(ctx context.Context, repoInfo *domain.RepoInfo)
 
 }
 
-func (rr *RedisRepo) CheckRateLimit(ctx context.Context, ip string, limit int) (bool, error) {
+func (rr *RedisRepo) CheckRateLimit(ctx context.Context, ip string, limit int, rps float64) (bool, error) {
 
 	key := fmt.Sprintf("limiter:%s", ip)
 	now := time.Now().UnixNano()
-	oneSecAgo := now - int64(time.Second)
+	windowStart := now - int64(limit/int(rps))*int64(time.Second)
 
-	_, err := rr.redisDB.ZRemRangeByScore(ctx, key, "0", fmt.Sprintf("%d", oneSecAgo)).Result()
+	_, err := rr.redisDB.ZRemRangeByScore(ctx, key, "0", fmt.Sprintf("%d", windowStart)).Result()
 
 	if err != nil {
 		return false, domain.ErrInternalError
