@@ -1,4 +1,4 @@
-# Домашнее задание №5
+# Домашнее задание №6
 ## Кэширование и Rate Limiting в API Gateway
 
 ---
@@ -223,3 +223,27 @@ Downstream сервисы не вызываются.
 - https://github.com/redis/go-redis
 - https://pkg.go.dev/golang.org/x/time/rate
 - https://habr.com/ru/articles/520978/
+
+## Инструкция по запуску
+## Запуск с помощью Docker
+1.  **Клонируйте репозиторий:**
+    ```bash
+    git clone https://github.com/Chaice1/golang-course
+    ```
+
+2.  **Перейдите в директорию проекта:**
+    ```bash
+    cd golang-course
+    ```
+3. **Перейдите в папку task6:**
+    ```bash
+    cd task6
+    ```
+4.  **Запуск программы:**
+    ```bash
+    make up
+    ```
+5.  **Остановка работы программы:**
+    ```
+    make down
+    ```
