@@ -49,7 +49,6 @@ func NewGetInfoRepositoryHandler(log *slog.Logger, agu *usecase.ApiGatewayUsecas
 		}
 
 		repo_info, err := agu.GetInfoRepo(r.Context(), path_slice[0], path_slice[1])
-		log.Error("api", "error", err)
 		if err != nil {
 			api_controller_errors.HandleErrorsFromDomainToHTTP(w, err, log, "GetInfoRepo")
 			return
