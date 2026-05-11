@@ -1,4 +1,4 @@
-package subscriber_grpc_client
+package subscriber_github_client
 
 import (
 	"context"

@@ -4,6 +4,7 @@ import (
 	"context"
 	generated_db "repo-stat/subscriber/internal/adapter/repository/gen"
 	subscriber_domain "repo-stat/subscriber/internal/domain"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -61,7 +62,7 @@ func (r *repo) GetSubscriptions(ctx context.Context) ([]*subscriber_domain.Subsc
 			Id:        responce[i].ID,
 			RepoName:  responce[i].RepoName,
 			OwnerName: responce[i].OwnerName,
-			CreatedAt: responce[i].CreatedAt.Time.String(),
+			CreatedAt: responce[i].CreatedAt.Time.Format(time.RFC3339),
 		}
 	}
 
@@ -86,6 +87,6 @@ func (r *repo) GetSubscription(ctx context.Context, repo string, owner string) (
 		Id:        responce.ID,
 		OwnerName: responce.OwnerName,
 		RepoName:  responce.RepoName,
-		CreatedAt: responce.CreatedAt.Time.String(),
+		CreatedAt: responce.CreatedAt.Time.Format(time.RFC3339),
 	}, nil
 }
