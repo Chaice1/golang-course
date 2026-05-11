@@ -11,7 +11,7 @@ import (
 	"repo-stat/platform/logger"
 	subscriberpb "repo-stat/proto/subscriber"
 	"repo-stat/subscriber/config"
-	subscriber_grpc_client "repo-stat/subscriber/internal/adapter/client/grpc"
+	subscriber_grpc_client "repo-stat/subscriber/internal/adapter/http"
 	subsciber_repository "repo-stat/subscriber/internal/adapter/repository/postgres"
 	grpccontroller "repo-stat/subscriber/internal/controller/grpc"
 	"repo-stat/subscriber/internal/usecase"
@@ -56,6 +56,8 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+
+	defer func() { pool.Close() }()
 
 	repo := subsciber_repository.NewRepo(pool)
 	gitHubApiClient := subscriber_grpc_client.NewGitHubApiClient()
