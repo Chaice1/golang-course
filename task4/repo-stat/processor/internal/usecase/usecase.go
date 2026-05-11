@@ -19,6 +19,6 @@ func (ps *processorService) GetRepoInfo(ctx context.Context, repo string, owner 
 	return ps.cc.GetRepoInfo(ctx, repo, owner)
 }
 
-func (ps *processorService) Ping(ctx context.Context) (*processor_domain.Ping, error) {
-	return ps.cc.Ping(ctx)
+func (ps *processorService) Ping(ctx context.Context) *processor_domain.Ping {
+	return &processor_domain.Ping{Reply: "pong"}
 }

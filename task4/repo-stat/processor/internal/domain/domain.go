@@ -30,5 +30,4 @@ var (
 
 type CollectorClient interface {
 	GetRepoInfo(context.Context, string, string) ([]*RepoInfo, error)
-	Ping(context.Context) (*Ping, error)
 }

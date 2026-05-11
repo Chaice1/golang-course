@@ -10,7 +10,7 @@ import (
 
 type ProcessorService interface {
 	GetRepoInfo(context.Context, string, string) ([]*processor_domain.RepoInfo, error)
-	Ping(context.Context) (*processor_domain.Ping, error)
+	Ping(context.Context) *processor_domain.Ping
 }
 
 type processorController struct {
@@ -68,7 +68,7 @@ func (pc *processorController) GetInfoRepositories(ctx context.Context, req *emp
 }
 
 func (pc *processorController) Ping(ctx context.Context, req *processorpb.PingRequest) (*processorpb.PingResponse, error) {
-	responce, _ := pc.ps.Ping(ctx)
+	responce := pc.ps.Ping(ctx)
 	return &processorpb.PingResponse{
 		Reply: responce.Reply,
 	}, nil

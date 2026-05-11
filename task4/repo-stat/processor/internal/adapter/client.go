@@ -73,7 +73,3 @@ func (cc *collectorClient) GetRepoInfo(ctx context.Context, repo string, owner s
 
 	return repos, nil
 }
-
-func (cc *collectorClient) Ping(ctx context.Context) (*processor_domain.Ping, error) {
-	return &processor_domain.Ping{Reply: "Pong"}, nil
-}
