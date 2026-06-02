@@ -54,8 +54,12 @@ func (p *producer) Relay(ctx context.Context) {
 					CreatedAt: message.CreatedAt.Format(time.RFC3339),
 				}
 
-				slice, _ := json.Marshal(&dtoMessage)
+				slice, marshal_err := json.Marshal(&dtoMessage)
 
+				if marshal_err != nil {
+					p.log.Error("failed to serialize message", "error", marshal_err)
+					continue
+				}
 				var err error
 				for try := 1; try <= 5; try++ {
 					err = p.w.WriteMessages(ctx, kafka.Message{

@@ -65,6 +65,7 @@ func run(ctx context.Context) error {
 
 	producer := processor_producer.NewProducer(cfg.Kafka.Address, DB, log)
 
+	defer func() { _ = producer.Close() }()
 	go producer.Relay(ctx)
 
 	processorUseCase := processor_usecase.NewProcessorService(DB)
@@ -72,6 +73,8 @@ func run(ctx context.Context) error {
 	processorHandler := processor_controller.NewProcessorService(processorUseCase, log)
 
 	consumer := processor_consumer.NewConsumer(cfg.Kafka.Address, DB, log)
+
+	defer func() { _ = consumer.Close() }()
 
 	go consumer.Start(ctx, 5)
 	srv, err := grpcserver.New(cfg.GRPC.Address)

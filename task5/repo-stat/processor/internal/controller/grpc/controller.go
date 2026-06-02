@@ -6,6 +6,7 @@ import (
 	processor_controller_errors "repo-stat/processor/internal/controller/errors"
 	processor_domain "repo-stat/processor/internal/domain"
 	processorpb "repo-stat/proto/processor"
+	"time"
 )
 
 type ProcessorService interface {
@@ -70,7 +71,7 @@ func (pc *processorController) GetInfoRepositories(ctx context.Context, req *pro
 			Forks:       repos[i].Forks,
 			Stargazers:  repos[i].Stargazers,
 			Status:      repos[i].Status,
-			Createdat:   repos[i].CreatedAt.String(),
+			Createdat:   repos[i].CreatedAt.Format(time.RFC3339),
 		}
 	}
 
