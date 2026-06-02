@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"time"
 
@@ -46,7 +45,6 @@ func (ghac *gitHubApiClient) GetRepoInfo(ctx context.Context, owner string, repo
 
 	defer func() { _ = resp.Body.Close() }()
 
-	log.Println("rest.StatusCode", resp.StatusCode, url)
 	if resp.StatusCode == http.StatusNotFound {
 		return nil, collectordomain.ErrNotFound
 	}

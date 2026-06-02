@@ -57,6 +57,7 @@ func (c *consumer) Consume(ctx context.Context, i int) {
 		kafka_message, err := c.r.FetchMessage(ctx)
 
 		if err != nil {
+			c.log.Error("failed to fetch message", "error", err)
 			continue
 		}
 

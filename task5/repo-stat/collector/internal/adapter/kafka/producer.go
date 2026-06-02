@@ -57,17 +57,25 @@ func (p *producer) SendRepoInfoMessage(ctx context.Context, fullname string, id 
 
 	if repoInfo == nil {
 
-		RepoInfoByteSlice, _ := json.Marshal(&collectorrespmodel.RepoInfoResMessage{
+		RepoInfoByteSlice, marshal_err := json.Marshal(&collectorrespmodel.RepoInfoResMessage{
 			FullName: fullname,
 			Error:    err.Error(),
 		})
+
+		if marshal_err != nil {
+			p.log.Error("failed to marshal message", "error", marshal_err)
+			return
+		}
 
 		p.sendMessage(ctx, []byte(id.String()), RepoInfoByteSlice, "repo-results")
 		return
 	}
 
-	SliceByte, _ := json.Marshal(repoInfo)
-
+	SliceByte, err := json.Marshal(repoInfo)
+	if err != nil {
+		p.log.Error("failed to marshal message", "error", err)
+		return
+	}
 	p.sendMessage(ctx, []byte(id.String()), SliceByte, "repo-results")
 }
 
@@ -101,8 +109,12 @@ func (p *producer) SendSubscriptionMessage(ctx context.Context) {
 					CreatedAt: item.CreatedAt,
 				}
 
-				subscriptionByteSlice, _ := json.Marshal(&subscriptionDTO)
+				subscriptionByteSlice, err := json.Marshal(&subscriptionDTO)
 
+				if err != nil {
+					p.log.Error("failed to marshal subscriptionDTO", "error", err)
+					continue
+				}
 				p.sendMessage(ctx, []byte(subscriptionDTO.Payload.Owner+"/"+subscriptionDTO.Payload.Repo), subscriptionByteSlice, "repo-tasks")
 
 			}
