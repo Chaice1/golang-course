@@ -93,3 +93,28 @@ Processor меняется незначительно --- добавьте не�
 - [pgxpool — пул соединений для PostgreSQL](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool)
 - [Работаем с PostgreSQL в Go. Опыт Авито ](https://habr.com/ru/companies/avito/articles/716516/). Если возникнут сложности с разверткой, 
 то можно писать в чат
+
+## ....
+## Инструкция по запуску
+## Запуск с помощью Docker
+1.  **Клонируйте репозиторий:**
+    ```bash
+    git clone https://github.com/Chaice1/golang-course
+    ```
+
+2.  **Перейдите в директорию проекта:**
+    ```bash
+    cd golang-course
+    ```
+3. **Перейдите в папку task4:**
+    ```bash
+    cd task4
+    ```
+4.  **Запуск программы:**
+    ```bash
+    make up
+    ```
+5.  **Остановка работы программы:**
+    ```
+    make down
+    ```
